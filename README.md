@@ -14,3 +14,36 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## 🧑‍💻 Running Locally
+
+Follow these steps to run the project on your local machine:
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/ShashankK1/react-flow
+cd react-flow
+```
+
+### 2. Install dependencies
+
+```bash
+npm i
+```
+
+### 3. Run locally
+
+```bash
+npm run dev
+```
+
+### 4. Open in browser
+
+```bash
+http://localhost:5173/
+```
+
+### 5. Deployed link on vercel
+
+[Link: https://react-flow-dusky.vercel.app/](https://react-flow-dusky.vercel.app/)
