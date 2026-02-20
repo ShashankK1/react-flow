@@ -11,9 +11,10 @@ import "@xyflow/react/dist/style.css";
 import Sidebar from "../../components/Sidebar";
 import Canvas from "../../components/Canvas";
 import { NodeBuilder } from "../../utils/NodeBuilder";
+import parseJsonToNodesEdges from "../../utils/ParseJsonToNodesEdges";
 
 const initialNode = new NodeBuilder()
-  .setPosition(100, 200)
+  .setPosition(100, 100)
   .setLabel("1st Node")
   .setType("custom")
   .setIsStart(true)
@@ -127,7 +128,6 @@ const Dasboard = () => {
     const el = event.target.closest("[data-edgeid]");
     if (!el) return;
     const { edgeid, sourceid, targetid } = el.dataset;
-    // const edgeId = event.target.getAttribute("data-edgeid");
     setEdges((prev) => prev.filter((edge) => edge.id !== edgeid));
     setNodes((prev) => {
       const sourceNode = prev.find((node) => node.id === sourceid);
@@ -187,7 +187,6 @@ const Dasboard = () => {
   };
 
   const handleAddEdge = (edgeData) => {
-    console.log({ edgeData });
     const sourceNodeId = selectedNode.root?.id;
     if (!sourceNodeId) return;
 
@@ -230,6 +229,17 @@ const Dasboard = () => {
     );
   };
 
+  const handleImportJson = (json) => {
+    const parsedData = parseJsonToNodesEdges(json);
+    setNodes(parsedData.nodes);
+    setEdges(parsedData.edges);
+    setSelectedNode({
+      root: null,
+      incoming: [],
+      outgoing: [],
+    });
+  };
+
   return (
     <div className="flex w-full h-screen">
       <Sidebar
@@ -241,6 +251,7 @@ const Dasboard = () => {
         handleRemoveEdge={handleRemoveEdge}
         nodes={nodes}
         handleAddEdge={handleAddEdge}
+        handleImportJson={handleImportJson}
       />
       <div className="flex-1">
         <Canvas

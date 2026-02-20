@@ -4,7 +4,6 @@ import { useState } from "react";
 const Node = (props) => {
   const { id, data } = props || {};
   const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div className="relative">
       <div
@@ -17,7 +16,7 @@ const Node = (props) => {
         <div className="font-semibold text-xs">{data.label}</div>
         {data.description ? (
           <div className="text-[8px] text-gray-500 max-w-[100px] overflow-hidden text-ellipsis whitespace-nowrap">
-            {data.description}
+            AAAA{data.description}
           </div>
         ) : null}
         {isHovered && data?.onDelete && (

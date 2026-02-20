@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import AddEdgeCard from "../AddEdgeCard";
+import JSONView from "../JSONView";
 
 const SidebarContent = (props) => {
   const {
@@ -13,6 +14,7 @@ const SidebarContent = (props) => {
     edges,
     nodes,
     handleAddEdge,
+    handleImportJson,
   } = props || {};
 
   const [open, setOpen] = useState(isOpen);
@@ -69,10 +71,38 @@ const SidebarContent = (props) => {
       [field]: value,
     }));
   };
+
   return (
     <div className="flex flex-col gap-2 w-full text-black">
+      <input
+        type="file"
+        accept=".json"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              try {
+                const json = JSON.parse(event.target?.result);
+                handleImportJson(json);
+              } catch (err) {
+                console.error("Invalid JSON file", err);
+              }
+            };
+            reader.readAsText(file);
+          }
+        }}
+        className="hidden"
+        id="json-file-input"
+      />
       <button
-        className="mt-6 w-full h-fit px-2 py-2 bg-blue-600 hover:bg-blue-700 text-white mb-2 rounded"
+        className="mt-6 w-full h-fit px-2 py-2 bg-blue-600 hover:bg-blue-700 text-white my-4 rounded"
+        onClick={() => document.getElementById("json-file-input")?.click()}
+      >
+        {open ? "Import JSON" : "↓"}
+      </button>
+      <button
+        className="w-full h-fit px-2 py-2 bg-blue-600 hover:bg-blue-700 text-white mb-2 rounded"
         onClick={addNewNode}
       >
         {open ? "Add Node" : "+"}
@@ -164,6 +194,17 @@ const SidebarContent = (props) => {
               Select a node to see details
             </p>
           )}
+          <div className="relative mt-3">
+            <div className="flex gap-2 items-center py-1">
+              <p className="text-sm text-gray-500">JSON view</p>
+            </div>
+            <div
+              className="overflow-scroll py-4"
+              style={{ maxHeight: "calc(100vh - 80px)" }}
+            >
+              <JSONView nodes={nodes} edges={edges} />
+            </div>
+          </div>
         </div>
       ) : null}
     </div>
