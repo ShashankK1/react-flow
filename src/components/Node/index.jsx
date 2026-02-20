@@ -16,7 +16,7 @@ const Node = (props) => {
         <div className="font-semibold text-xs">{data.label}</div>
         {data.description ? (
           <div className="text-[8px] text-gray-500 max-w-[100px] overflow-hidden text-ellipsis whitespace-nowrap">
-            AAAA{data.description}
+            {data.description}
           </div>
         ) : null}
         {isHovered && data?.onDelete && (

@@ -231,7 +231,12 @@ const Dasboard = () => {
 
   const handleImportJson = (json) => {
     const parsedData = parseJsonToNodesEdges(json);
-    setNodes(parsedData.nodes);
+    setNodes(
+      parsedData.nodes?.map((node) => ({
+        ...node,
+        data: { ...node.data, onDelete: deleteNode },
+      })),
+    );
     setEdges(parsedData.edges);
     setSelectedNode({
       root: null,
