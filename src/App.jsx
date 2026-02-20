@@ -1,7 +1,12 @@
 import "./App.css";
+import { Dasboard } from "./pages";
 
 function App() {
-  return <div className="text-2xl font-bold">Check tailwind</div>;
+  return (
+    <div className="w-full h-screen">
+      <Dasboard />
+    </div>
+  );
 }
 
 export default App;
